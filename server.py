@@ -69,7 +69,7 @@ async def home():
 
     if user:
         # Extraer los datos si el usuario ya llenó el formulario
-        user_metadata = user.get("user_metadata", {})
+        user_metadata = user.get("https://itm-proyecto/user_metadata", {})
         return f"""
             {head}
             <body style="font-family: Arial; padding: 20px;">
@@ -124,8 +124,8 @@ async def update_profile():
     # 2. Solicitar el Token de la Management API de Auth0
     token_url = f"https://{domain}/oauth/token"
     token_payload = {
-        "client_id": client_id,
-        "client_secret": client_secret,
+        "client_id": "na62MSzh3xo5IdIC0EDXLGuNg0VebwTi",
+        "client_secret": "Wu8hes36rp-toIpX02V_xAMv-1xd5DBe7dd906XLCCsDT0Q_Uo_wcr-z_etrGQ6p",
         "audience": f"https://{domain}/api/v2/",
         "grant_type": "client_credentials"
     }
@@ -147,7 +147,8 @@ async def update_profile():
                 "phone": phone
             }
         }
-        requests.patch(update_url, headers=headers, json=update_data)
+        respuesta = requests.patch(update_url, headers=headers, json=update_data)
+        print("Estado de guardado en Auth0:", respuesta.status_code)
 
     return redirect("/")
 
